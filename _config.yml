@@ -19,11 +19,11 @@ locale                   : "ko-KR"
 title                    : "my stack"
 title_separator          : "-"
 subtitle                 : v0.01 # site tagline that appears below site title in masthead
-name                     : "seok"
+name                     : "knd"
 description              : "잘하자"
 url                      : "https://adtstack.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : adtstack # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
@@ -101,11 +101,11 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "knd"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
-  location         : "Somewhere"
-  email            :
+  bio              : "2024 let's go"
+  location         : "Somewhere, Korea"
+  email            : int@kakao.com
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
@@ -137,7 +137,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: 
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
