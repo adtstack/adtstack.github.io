@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BriefCal — adtstack</title>
+  <meta name="description" content="회의 전에 챙길 것, 끝나고 할 일까지 적어두는 macOS 캘린더. adtstack의 프로젝트.">
+  <meta property="og:title" content="BriefCal — adtstack">
+  <meta property="og:description" content="회의 전에 챙길 것, 끝나고 할 일까지 적어두는 macOS 캘린더.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+  <nav class="topbar" aria-label="사이트 내비게이션">
+    <div class="wrap">
+      <a href="../../">← adtstack</a>
+      <a href="https://github.com/adtstack/BriefCal">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">macOS 앱</p>
+      <h1>BriefCal</h1>
+      <p class="lead">회의 전에 챙길 것, 끝나고 할 일까지 적어두는 macOS 캘린더.</p>
+      <div class="badge-row">
+        <span class="badge">2026.07 시작 · 약 1개월 진행</span>
+        <span class="badge">로컬 테스트 빌드 · 공증 전</span>
+        <span class="badge">v1 기능 개발 종료</span>
+      </div>
+      <div class="head-links">
+        <a href="https://github.com/adtstack/BriefCal">소스 저장소 ↗</a>
+        <a href="https://github.com/adtstack/BriefCal/releases">릴리스 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="article wrap">
+
+    <section aria-labelledby="about">
+      <h2 id="about">왜 만들었나</h2>
+      <p>
+        하루 일정을 아무리 잘 지켜도 정작 중요한 건 일정 사이사이에 있다. 내일 발표 전에
+        챙겨야 할 것, 회의 끝나고 보내야 할 메일. 그런 건 캘린더에 적는 자리가 없어서 머리로
+        들고 다니거나 어딘가에 흩어져 있곤 했다. BriefCal은 그걸 일정 바로 옆에 붙여두는
+        앱이다. 회사에서 Exchange 캘린더를 쓰는 사람 — 그러니까 나 같은 사람 — 도 쓸 수
+        있게 만들었다.
+      </p>
+    </section>
+
+    <section aria-labelledby="features">
+      <h2 id="features">핵심 기능</h2>
+      <ul class="feature-list">
+        <li><b>준비물과 후속 작업</b>을 일정마다 붙여둔다. 이 내용은 내 컴퓨터에만 저장된다.</li>
+        <li><b>익숙한 캘린더 화면</b> — 하루·주·월 보기에 할 일 모아보기, 작은 월달력까지 갖췄다.</li>
+        <li><b>macOS 캘린더에 있는 일정을 그대로</b> 읽고 고친다. Exchange 캘린더도 우선 대상으로 잡고 검증했다.</li>
+        <li><b>흩어진 할 일을 한곳에</b> — 알림, 구글 작업, 투두이스트, 마이크로소프트 투두를 각 서비스의 규칙에 맞게 함께 관리한다.</li>
+        <li><b>반복 일정을 안전하게</b> 고친다. 종일 일정이나 시간대가 섞여도 문제없게.</li>
+        <li><b>검색과 계획</b> — 일정과 할 일을 한 번에 검색하고, 할 일에 시간을 정해 캘린더에 얹는다.</li>
+        <li><b>내보내기는 내가 고를 때만</b> — 필요한 걸 골라 파일로 내보낸다. 그 외에는 어떤 데이터도 밖으로 나가지 않는다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="achievements">
+      <h2 id="achievements">주요 기술 성과</h2>
+      <ul class="feature-list">
+        <li><b>Local-first 데이터 격리 아키텍처</b> — 일정(EventKit)과 맥락 데이터(SQLite)의 책임을 명확히 분리하여 계정·서버·클라우드 없는 100% 로컬 데이터 격리 환경 구축.</li>
+        <li><b>ADR(아키텍처 결정 기록) 기반 개발</b> — No-AI, No-Cloud, No-Account 경계를 문서화하고, 앱 리네이밍 시 번들 ID부터 Keychain·URL scheme 네임스페이스까지 체계적으로 관리.</li>
+        <li><b>안전한 OAuth 콜백 핸들링</b> — 외부 4개 할 일 서비스 연동 시 중복 파라미터 및 비정상 리다이렉트를 차단하는 엄격한 인증 검증 로직 구현.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="design">
+      <h2 id="design">설계 이야기</h2>
+      <p>
+        일정은 macOS 캘린더가 갖고, 일정에 붙인 내 메모는 내 컴퓨터 안의 작은 저장소가
+        갖는다. 계정을 만들지 않고, 별도 서버를 두지 않고, AI도 넣지 않기로 했다. 이건
+        개발하다가 늘린 게 아니라 첫날에 못 박은 원칙이다. 할 일 앱들과 연결할 때도 이상한
+        응답은 아예 받아들이지 않게 막았고, 앱 업데이트도 서명이 확인되지 않으면 아예
+        돌아가지 않는다.
+      </p>
+
+      <h3>어떻게 만들어 갔나</h3>
+      <p>
+        저장소의 첫 커밋은 코드가 아니라 문서다. 뭘 만들고 뭘 안 만들지부터 적었고, 구현은
+        그 문서를 따라갔다. 개발 중에 이름을 KaosCal에서 BriefCal로 바꾸게 됐을 때는
+        파일명만 고치는 대신 앱의 아이디 전체를 다시 정리하는 계기로 삼았다. v1은 기능을
+        더 붙이지 않고 멈추는 쪽을 골랐다 — 덜 만들고 남은 검증을 닫는 게 맞았다.
+      </p>
+    </section>
+
+    <section aria-labelledby="how">
+      <h2 id="how">만든 방식</h2>
+      <p class="desc">
+        코드는 AI 도구와 함께 많이 썼다. 대신 뭘 만들지, 뭘 절대 만들지 않을지 정한 문서는
+        직접 썼고, 구현이 그 문서를 벗어나지 않는지를 계속 확인했다. 자동으로 확인한 것과
+        사람이 직접 확인해야 하는 것은 처음부터 나눠 적었다. 그래서 지금이 '공증 전 로컬
+        테스트 빌드'라는 걸 그냥 쓸 수 있다.
+      </p>
+    </section>
+
+    <section aria-labelledby="stack">
+      <h2 id="stack">기술 스택</h2>
+      <ul class="chips">
+        <li>Swift</li><li>SwiftUI</li><li>EventKit</li><li>GRDB · SQLite</li><li>Sparkle</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <nav class="postnav" aria-label="프로젝트 내비게이션">
+    <div class="wrap">
+      <a class="next" href="../forktail/"><span class="dir">다음 프로젝트</span>Forktail</a>
+    </div>
+  </nav>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 adtstack</span>
+      <a href="https://github.com/adtstack">github.com/adtstack</a>
+    </div>
+  </footer>
+
+</body>
+</html>

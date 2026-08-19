@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KinFlow — adtstack</title>
+  <meta name="description" content="둘이 사는 집의 집안일을 정확하게 나누는 Android 앱. adtstack의 프로젝트.">
+  <meta property="og:title" content="KinFlow — adtstack">
+  <meta property="og:description" content="둘이 사는 집의 집안일을 정확하게 나누는 Android 앱.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+
+  <nav class="topbar" aria-label="사이트 내비게이션">
+    <div class="wrap">
+      <a href="../../">← adtstack</a>
+      <a href="https://github.com/adtstack/KinFlow">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">모바일 앱</p>
+      <h1>KinFlow</h1>
+      <p class="lead">둘이 사는 집의 집안일을 정확하게 나누는 Android 앱.</p>
+      <div class="badge-row">
+        <span class="badge">2026.07 시작 · 약 3주 진행</span>
+        <span class="badge">내부 alpha · 평가용</span>
+        <span class="badge">Android 우선</span>
+      </div>
+      <div class="head-links">
+        <a href="https://github.com/adtstack/KinFlow">소스 저장소 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="article wrap">
+
+    <section aria-labelledby="about">
+      <h2 id="about">왜 만들었나</h2>
+      <p>
+        집안일 앱은 많은데 둘이 사는 집에는 다들 안 맞았다. 부모-자녀용 가족 앱이거나, 팀
+        프로젝트용 툴이거나. 필요한 건 단순했다 — 이번 주 설거지를 서로 바꾸고 싶을 때 '이번
+        주만' 바꾸고 다음 주부터는 원래대로. 이런 게 어이없게도 제일 어려운 문제이고, KinFlow는
+        거기서부터 만들었다.
+      </p>
+    </section>
+
+    <section aria-labelledby="features">
+      <h2 id="features">핵심 기능</h2>
+      <ul class="feature-list">
+        <li><b>오늘 할 일과 일정</b>을 한 화면에서 만들고 끝낸다.</li>
+        <li><b>반복 집안일의 예외</b> — 이번 주만 바꾸기, 전체 바꾸기, 이번 주부터 바꾸기를 구분하고, 취소했던 것도 경계를 지켜 복구한다.</li>
+        <li><b>둘 사이의 신뢰</b> — 초대는 한 번 쓰면 끝나고, 역할 바꾸기나 나가기 같은 민감한 일은 기록이 남는다.</li>
+        <li><b>끝내면 바로 알림</b> — 상대방이 무엇을 끝냈는지 다 물어보지 않아도 된다.</li>
+        <li><b>한국어·영어</b> — 큰 글씨, 화면 낭독, 넓은 화면까지 기본으로 지원한다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="achievements">
+      <h2 id="achievements">주요 기술 성과</h2>
+      <ul class="feature-list">
+        <li><b>Supabase RLS(행 수준 보안) 기반 데이터 격리</b> — 공격 시나리오(가구 간 데이터 침범, 권한 우회)를 방어하는 가구 단위 행 수준 보안 정책 수립.</li>
+        <li><b>서버 주도 반복 일정 상태 모델</b> — 회차 경계, 예외 처리, 되돌림 연산을 서버(PostgreSQL)에서 단일 진실 원천(SSOT)으로 관리해 클라이언트 변조 방지.</li>
+        <li><b>포트/어댑터(Clean Architecture) 아키텍처</b> — 도메인·데이터·프레젠테이션 계층 분리 및 저장소 추상화로 화면 확장에 강한 구조 설계.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="design">
+      <h2 id="design">설계 이야기</h2>
+      <p>
+        '이번 주만 바꾸기'가 제일 위험한 기능이라서, 진실은 앱이 아니라 서버가 갖기로 했다.
+        두 사람이 각자 폰에서 같은 집안일을 고쳐도 서버가 순서를 정해주면 안 꼬인다. 두 집의
+        데이터가 섞이면 안 되는 일이라 데이터 자체가 집 단위로 격리되게 만들었고, 알림처럼
+        무거운 일은 서버가 뒤에서 천천히 처리한다.
+      </p>
+
+      <h3>어떻게 만들어 갔나</h3>
+      <p>
+        서버의 반복 규칙을 먼저 문서로 정리하면서 시작했다. 개발 내내 되물은 질문은 '이건
+        서버가 정해야 하나, 앱이 정해야 하나?'였다. 회차의 경계와 기록은 서버로 올리고 화면
+        상태는 앱에 두는 선을 계속 그었다. 두 사람이 실제 폰 두 대로 써보는 마지막 관문은 아직
+        통과 전이고, 그대로 적어뒀다.
+      </p>
+    </section>
+
+    <section aria-labelledby="how">
+      <h2 id="how">만든 방식</h2>
+      <p class="desc">
+        문서, 계약, 구현, 증거 순서로만 진행했다. AI 도구가 구현을 빠르게 만들어줬지만 가구를
+        어떻게 모델링할지는 내가 정했고, '다른 집 사람이 정말 못 보는지'를 확인하는 테스트는
+        공격자가 된 기분으로 직접 추가했다. 지금은 내부 평가용 alpha다.
+      </p>
+    </section>
+
+    <section aria-labelledby="stack">
+      <h2 id="stack">기술 스택</h2>
+      <ul class="chips">
+        <li>Dart</li><li>Flutter</li><li>Riverpod</li><li>go_router</li><li>Supabase</li><li>PostgreSQL</li><li>RevenueCat</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <nav class="postnav" aria-label="프로젝트 내비게이션">
+    <div class="wrap">
+      <a href="../forktail/"><span class="dir">이전 프로젝트</span>Forktail</a>
+      <a class="next" href="../kaos/"><span class="dir">다음 프로젝트</span>KAOS</a>
+    </div>
+  </nav>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 adtstack</span>
+      <a href="https://github.com/adtstack">github.com/adtstack</a>
+    </div>
+  </footer>
+
+</body>
+</html>

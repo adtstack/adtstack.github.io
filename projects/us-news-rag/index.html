@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>US Stock News RAG — adtstack</title>
+  <meta name="description" content="미국 주식 뉴스에 물어보는 챗봇, 그리고 답의 품질을 지켜보는 기록. adtstack의 프로젝트.">
+  <meta property="og:title" content="US Stock News RAG — adtstack">
+  <meta property="og:description" content="미국 주식 뉴스에 물어보는 챗봇, 품질 평가 기록을 통한 테스트">
+  <meta property="og:type" content="website">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+
+<body>
+
+  <nav class="topbar" aria-label="사이트 내비게이션">
+    <div class="wrap">
+      <a href="../../">← adtstack</a>
+      <a href="https://github.com/adtstack/us-news-rag-test">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">ML 프로젝트</p>
+      <h1>US Stock News RAG</h1>
+      <p class="lead">미국 주식 뉴스에 물어보는 챗봇, 그리고 답의 품질을 지켜보는 기록.</p>
+      <div class="badge-row">
+        <span class="badge">2026.02 · 약 1주 개발</span>
+        <span class="badge">2026 개인 프로젝트</span>
+      </div>
+      <div class="head-links">
+        <a href="https://github.com/adtstack/us-news-rag-test">소스 저장소 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="article wrap">
+
+    <section aria-labelledby="about">
+      <h2 id="about">왜 만들었나</h2>
+      <p>
+        미국 주식을 하다 보면 뉴스 읽는 시간이 점점 늘어난다. 다 읽을 수는 없으니 물어보고
+        싶어진다 — '오늘 엔비디아 소식 뭐 있어?' 그런데 그냥 챗봇에게 물으면 그럴듯하게
+        지어낸 대답이 나온다. 근거가 되는 뉴스에서 답을 찾고, 그 답이 괜찮은지 매번 채점하고
+        싶었다.
+      </p>
+    </section>
+
+    <section aria-labelledby="features">
+      <h2 id="features">핵심 기능</h2>
+      <ul class="feature-list">
+        <li><b>뉴스를 모은다</b> — 여러 출처에서 미국 주식 뉴스를 긁어와 정리하고 중복을 없앤다.</li>
+        <li><b>두 방식으로 찾아 섞는다</b> — 뜻이 비슷한 것과 정확히 같은 단어, 둘 다 잡도록 검색을 섞고 다시 줄을 세운다.</li>
+        <li><b>질문을 바꿔서</b> — 종목명을 회사 이름으로 바꾸고, 가상의 질문을 만들어 더 잘 찾게 하고, 최근 뉴스를 우선한다.</li>
+        <li><b>스스로 다시 찾는다</b> — 찾은 자료가 부족하다고 판단하면 다시 검색하거나 그 자리에서 뉴스를 더 긁어온다.</li>
+        <li><b>답은 흐르는 대로</b> — 답변이 만들어지는 대로 보여준다.</li>
+        <li><b>모든 대화에 점수를</b> — 관련성·정확성·완결성을 자동으로 채점하고 비용과 시간도 함께 남긴다.</li>
+        <li><b>세 개의 화면</b> — 채팅, 뉴스 관리, 품질 그래프를 보는 대시보드.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="achievements">
+      <h2 id="achievements">주요 기술 성과</h2>
+      <ul class="feature-list">
+        <li><b>LangGraph 기반 Self-RAG / CRAG 상태 머신</b> — 단발성 검색에 의존하지 않고, 검색 결과의 관련성을 스스로 평가해 웹 크롤링으로 보충하거나 재시도하는 복합
+          파이프라인 구축.</li>
+        <li><b>BM25 + ChromaDB 하이브리드 검색 &amp; FlashRank 리랭킹</b> — 희소 키워드(BM25)와 밀집 벡터(ChromaDB)를 RRF로 융합 후 재순위화하여 정보 검색
+          정확도 최적화.</li>
+        <li><b>Langfuse LLM-as-Judge 품질/비용 트래킹 파이프라인</b> — 프롬프트 버전 및 검색 모듈 변경 시 대화별 관련성·정확성·완결성 점수와 토큰 비용을 정량적으로 추적·기록.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="design">
+      <h2 id="design">설계 이야기</h2>
+      <p>
+        찾아서 붙여 넣는 단순한 RAG로 시작했는데 부족한 순간이 자주 보였다. 질문을 다시 쓰고,
+        검색을 섞고, 결과를 스스로 판정해 다시 찾는 흐름을 하나의 그래프로 엮었다. 어떤
+        실험을 했는지, 프롬프트를 바꾸면 점수가 어떻게 움직이는지 전부 기록으로 남겨서 나중에
+        돌아볼 수 있게 했다. 처음부터 끝까지 실행된 노트북이 이 파이프라인이 실제로 돌아갔다는
+        증거다.
+      </p>
+
+      <h3>어떻게 만들어 갔나</h3>
+      <p>
+        노트북에서 시작했다. 뉴스를 모으고, 찾고, 답하는 각 단계를 직접 돌려보며 어디서
+        삐걱대는지 봤다. 답이 부족할 때마다 기법을 하나씩 얹었고, 구조가 정리되면 코드로
+        옮겼다. 노트북은 버리지 않고 기록으로 남겼다.
+      </p>
+    </section>
+
+    <section aria-labelledby="how">
+      <h2 id="how">만든 방식</h2>
+      <p class="desc">
+        AI 도구로 프로토타입은 빠르게 만들되, 다음 단계로 넘어가도 되는지 판단은 내가 했다.
+        기록 없는 실험은 하지 않았고, 데이터와 평가 결과는 로컬에만 뒀다. 개인 실험으로 시작해
+        여기까지 확인했다 — 그게 이 프로젝트의 정직한 상태다.
+      </p>
+    </section>
+
+    <section aria-labelledby="stack">
+      <h2 id="stack">기술 스택</h2>
+      <ul class="chips">
+        <li>Python</li>
+        <li>LangGraph</li>
+        <li>ChromaDB</li>
+        <li>BM25</li>
+        <li>FlashRank</li>
+        <li>Gemini API</li>
+        <li>Langfuse</li>
+        <li>Streamlit</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <nav class="postnav" aria-label="프로젝트 내비게이션">
+    <div class="wrap">
+      <a href="../kaos/"><span class="dir">이전 프로젝트</span>KAOS</a>
+    </div>
+  </nav>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 adtstack</span>
+      <a href="https://github.com/adtstack">github.com/adtstack</a>
+    </div>
+  </footer>
+
+</body>
+
+</html>
