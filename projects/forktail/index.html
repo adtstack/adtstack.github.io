@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,10 +9,13 @@
   <meta property="og:title" content="Forktail — adtstack">
   <meta property="og:description" content="매일 쓰는 파일 비교·합치기 도구를 직접 만들었다.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
+
 <body>
 
   <nav class="topbar" aria-label="사이트 내비게이션">
@@ -29,7 +33,6 @@
       <div class="badge-row">
         <span class="badge">2026.06 시작 · 약 7주째 개발 중</span>
         <span class="badge">Phase 1 · 개발 진행 중</span>
-        <span class="badge">MIT</span>
       </div>
       <div class="head-links">
         <a href="https://github.com/adtstack/Forktail">소스 저장소 ↗</a>
@@ -44,8 +47,8 @@
       <p>
         개발자는 매일 파일을 비교한다. 코드 리뷰, 설정 파일, 충돌난 병합. 그런데 마음에 드는
         도구 하나를 고르기가 의외로 어렵다 — 비싸거나, 가입을 하라고 하거나, 이상한 데
-        데이터가 올라가거나. 그래서 만들기로 했다. 파일 비교, 폴더 비교, 충돌 합치기. Beyond
-        Compare에서 자주 쓰던 흐름을 계정 없이, 내 컴퓨터에서만 돌아가게.
+        데이터가 올라가거나. 그래서 만들기로 했다. 파일 비교, 폴더 비교, 충돌 합치기.
+        자주 쓰던 흐름을 계정 없이, 원격지와의 파일 비교, git 브랜치별 비교까지 시도한다.
       </p>
     </section>
 
@@ -57,16 +60,18 @@
         <li><b>충돌난 파일 합치기</b> — 원본, 내 것, 상대 것을 놓고 한 조각씩 고르거나 자동으로 합친다.</li>
         <li><b>Git과 함께</b> — Git이 이 도구를 불러 쓸 수 있다. 단, 저장소를 건드리는 일은 하지 않는다.</li>
         <li><b>이상한 파일도 안전하게</b> — 인코딩이 어떻든 알아서 읽고, 사실상 바이너리인 파일은 거절하며, 너무 큰 파일은 보호한다.</li>
-        <li><b>셋 다 지원</b> — macOS, 윈도, 리눅스에서 돌아간다.</li>
+        <li><b>많은 OS 지원</b> — macOS, 윈도, 리눅스에서 돌아간다.</li>
       </ul>
     </section>
 
     <section aria-labelledby="achievements">
       <h2 id="achievements">주요 기술 성과</h2>
       <ul class="feature-list">
-        <li><b>Tauri 2 + Rust + Monaco 분산 아키텍처</b> — UI 렌더링은 React/Monaco로 분리하고, 대용량 파일 시스템 조작 및 diff 연산은 Rust 코어로 내려 고성능·안정성 확보.</li>
+        <li><b>Tauri 2 + Rust + Monaco 분산 아키텍처</b> — UI 렌더링은 React/Monaco로 분리하고, 대용량 파일 시스템 조작 및 diff 연산은 Rust 코어로 내려
+          고성능·안정성 확보.</li>
         <li><b>diff3 충돌 마커 파서 고도화</b> — 유니코드 정규화 차이, 줄바꿈 혼재, 사용자 텍스트 오인식 등 엣지케이스를 방어하는 파싱 로직 및 테스트 케이스 설계.</li>
-        <li><b>원자적 파일 저장(Atomic Write) &amp; OS별 CI 구축</b> — 백업 후 교체하는 안전 저장 로직과 함께 Windows/macOS/Linux OS별 차이를 반영한 빌드 및 CI 환경 구축.</li>
+        <li><b>원자적 파일 저장(Atomic Write) &amp; OS별 CI 구축</b> — 백업 후 교체하는 안전 저장 로직과 함께 Windows/macOS/Linux OS별 차이를 반영한 빌드 및
+          CI 환경 구축.</li>
       </ul>
     </section>
 
@@ -78,7 +83,7 @@
         '줄바꿈이 섞인 파일' 같은 골칫거리를 미리 잡아두지 않으면 언젠가 물린다. 그래서 그런
         케이스를 미리 다 묶어놓았다. Git 연동의 원칙은 단순하다 — 읽기만 한다. 저장소를
         바꾸는 명령은 아예 실행하지 않는다. 폴더 목록이 아무리 길어도 화면이 무겁지 않게
-        그 부분도 직접 만들었다.
+        그 부분은 직접 만들었다.
       </p>
 
       <h3>어떻게 만들어 갔나</h3>
@@ -103,7 +108,12 @@
     <section aria-labelledby="stack">
       <h2 id="stack">기술 스택</h2>
       <ul class="chips">
-        <li>TypeScript</li><li>React</li><li>Monaco</li><li>Tauri 2</li><li>Rust</li><li>diffy</li>
+        <li>TypeScript</li>
+        <li>React</li>
+        <li>Monaco</li>
+        <li>Tauri 2</li>
+        <li>Rust</li>
+        <li>diffy</li>
       </ul>
     </section>
 
@@ -124,4 +134,5 @@
   </footer>
 
 </body>
+
 </html>

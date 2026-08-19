@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,10 +9,13 @@
   <meta property="og:title" content="KAOS — adtstack">
   <meta property="og:description" content="Obsidian 노트를 여러 기기에서. 서버는 내 Cloudflare 계정에.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../../assets/style.css">
 </head>
+
 <body>
 
   <nav class="topbar" aria-label="사이트 내비게이션">
@@ -25,15 +29,16 @@
     <div class="wrap">
       <p class="kicker">동기화 · 인프라</p>
       <h1>KAOS</h1>
-      <p class="lead">Obsidian 노트를 여러 기기에서. 서버는 내 Cloudflare 계정에.</p>
+      <p class="lead">Obsidian 노트 동기화 툴이 맘에 안들어서 내가 직접 만든다.</p>
       <div class="badge-row">
         <span class="badge">2026.06 시작 · 지속적 개선 중</span>
-        <span class="badge">v1.12.0 · 사용 가능</span>
+        <span class="badge">v1.12.2 · 사용 가능</span>
         <span class="badge">0BSD · YAOS 파생</span>
       </div>
       <div class="head-links">
         <a href="https://github.com/adtstack/kaos">소스 저장소 ↗</a>
-        <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/adtstack/kaos/tree/main/server">Cloudflare에 배포 ↗</a>
+        <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/adtstack/kaos/tree/main/server">Cloudflare에
+          배포 ↗</a>
       </div>
     </div>
   </header>
@@ -45,8 +50,8 @@
       <p>
         Obsidian으로 노트를 쌓다 보면 다른 기기에서도 읽고 싶어진다. 클라우드 폴더에 넣으면
         편한데, 같은 노트를 두 군데서 고치면 '충돌 복사본'이 폴더에 쌓이고, 노트 전체가 남의
-        서버에 들어간다. 둘 다 내키지 않았다. 그래서 서버는 내가 갖고, 합치는 건 기계가 알아서
-        하게 만들었다.
+        서버에 들어간다. 둘 다 내키지 않았다. 그래서 서버도 내가 배포하고 Yjs-충돌 없는
+        복제 데이터 타입(CRDT) 알고리즘-을 사용하여 합친다.
       </p>
     </section>
 
@@ -54,11 +59,8 @@
       <h2 id="features">핵심 기능</h2>
       <ul class="feature-list">
         <li><b>같은 노트를 동시에 고쳐도</b> 알아서 합쳐진다. 밀린 쪽의 기록은 버리지 않고 서버에 남긴다.</li>
-        <li><b>노트는 내 컴퓨터의 파일 그대로</b> — 마크다운 파일이 그 자리에 있다. 새 편집기를 배우지 않아도 된다.</li>
         <li><b>이름 바꾸기·이동도 안전하게</b> 따라간다.</li>
         <li><b>서버는 내 계정에</b> — 버튼 한 번으로 내 Cloudflare에 띄우고, 한 번 쓰고 끝나는 열쇠로 내 소유임을 등록한다.</li>
-        <li><b>사진·첨부는 따로</b> 처리해서 글 동기화를 가볍게 유지한다.</li>
-        <li><b>업데이트해도</b> 설정과 기록이 그대로 남는다.</li>
       </ul>
     </section>
 
@@ -66,7 +68,8 @@
       <h2 id="achievements">주요 기술 성과</h2>
       <ul class="feature-list">
         <li><b>단일 Y.Doc 트리 아키텍처</b> — vault 전체를 단일 CRDT 문서로 묶어 파일 이름 변경·이동 연산 시 데이터 유실이나 정합성 깨짐 없이 원자적 트랜잭션 보장.</li>
-        <li><b>체크포인트 + 저널링 압축 엔진</b> — Cloudflare Durable Objects에서 편집을 저널 형태로 소형 저장하고, 일정 임계치 도달 시 스냅샷으로 결정론적 압축을 수행해 처리량 최적화.</li>
+        <li><b>체크포인트 + 저널링 압축 엔진</b> — Cloudflare Durable Objects에서 편집을 저널 형태로 소형 저장하고, 일정 임계치 도달 시 스냅샷으로 결정론적 압축을 수행해
+          처리량 최적화.</li>
         <li><b>운영 장애 극복 및 테스트 자동화</b> — 대용량 룸 크래시 장애를 원인 분석해 저널 상한선 정책을 수립하고, Obsidian 자동 조작 다기기 회귀 테스트 시나리오 구축.</li>
       </ul>
     </section>
@@ -82,11 +85,13 @@
 
       <div class="gallery">
         <figure>
-          <img src="../../assets/diagrams/single-vault-monolithic-y-doc.webp" alt="단일 vault CRDT 모델과 분산 구조 비교 다이어그램" loading="lazy">
+          <img src="../../assets/diagrams/single-vault-monolithic-y-doc.webp" alt="단일 vault CRDT 모델과 분산 구조 비교 다이어그램"
+            loading="lazy">
           <figcaption>하나의 vault를 단일 CRDT 문서로 다루는 모델과 분산 구조의 비교</figcaption>
         </figure>
         <figure>
-          <img src="../../assets/diagrams/filesystem-bridge-control-loops.webp" alt="디스크와 CRDT 사이 제어 루프 다이어그램" loading="lazy">
+          <img src="../../assets/diagrams/filesystem-bridge-control-loops.webp" alt="디스크와 CRDT 사이 제어 루프 다이어그램"
+            loading="lazy">
           <figcaption>디스크와 CRDT 사이를 잇는 제어 루프와 지켜야 할 불변식</figcaption>
         </figure>
         <figure>
@@ -103,15 +108,16 @@
         </figure>
       </div>
       <p class="desc">
-        다이어그램 원본은 <a href="https://github.com/adtstack/kaos/tree/main/engineering/diagrams">저장소의 engineering/diagrams</a>에서 볼 수 있다.
+        다이어그램 원본은 <a href="https://github.com/adtstack/kaos/tree/main/engineering/diagrams">저장소의
+          engineering/diagrams</a>에서 볼 수 있다.
       </p>
 
       <h3>어떻게 만들어 갔나</h3>
       <p>
-        남의 프로젝트(YAOS)를 가져와 시작했지만, 마음에 안 드는 것부터 하나씩 적으며 갈라
-        나갔다. 고친 이유는 문서와 그림으로 남겼다. 실제로 돌리다가 서버가 통째로 멈추는
+        다른 사람의 프로젝트(YAOS)를 가져와 시작했지만, 마음에 안 드는 것부터 하나씩 적으며 갈라
+        나갔다. 고친 이유는 문서로 자세히 남겼다. 실제로 돌리다가 서버가 통째로 멈추는
         장애를 만났고, 원인과 복구 과정을 부끄러운 그대로 문서에 적어뒀다. 문제가 생길
-        때마다 실제 Obsidian 앱을 움직이는 테스트를 하나씩 추가했다.
+        때마다 실제 Obsidian 앱을 움직이는 computer-use 스킬 테스트를 하나씩 추가했다.
       </p>
     </section>
 
@@ -119,7 +125,7 @@
       <h2 id="how">만든 방식</h2>
       <p class="desc">
         '왜 그렇게 돌아가는지' 설명하지 못하면 못 믿는 성격이라, 설계 문서와 그림을 코드 옆에
-        계속 둔다. 구현에 AI 도구를 썼지만 저장 구조처럼 잘못되면 큰일 나는 결정은 직접
+        계속 둔다. 구현에 AI 도구를 썼지만 저장이 잘못되어 날릴 수도 있는 결정은 직접
         이해하고 정리한 뒤에야 반영했다. 원작 YAOS의 기여는 그대로 인정하고, 배포는 내
         Cloudflare 계정에서 직접 하고 있다.
       </p>
@@ -128,7 +134,11 @@
     <section aria-labelledby="stack">
       <h2 id="stack">기술 스택</h2>
       <ul class="chips">
-        <li>TypeScript</li><li>Yjs</li><li>Cloudflare Workers</li><li>Durable Objects</li><li>Obsidian API</li>
+        <li>TypeScript</li>
+        <li>Yjs</li>
+        <li>Cloudflare Workers</li>
+        <li>Durable Objects</li>
+        <li>Obsidian API</li>
       </ul>
     </section>
 
@@ -149,4 +159,5 @@
   </footer>
 
 </body>
+
 </html>

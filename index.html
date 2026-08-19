@@ -1,18 +1,23 @@
 <!doctype html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>adtstack — 만들어서 직접 씁니다</title>
-  <meta name="description" content="adtstack의 공개 프로젝트: macOS 캘린더 BriefCal, diff/merge 도구 Forktail, 가족 협업 앱 KinFlow, Obsidian 동기화 KAOS, 주식 뉴스 RAG 챗봇.">
+  <meta name="description"
+    content="adtstack의 공개 프로젝트: macOS 캘린더 BriefCal, diff/merge 도구 Forktail, 가족 협업 앱 KinFlow, Obsidian 동기화 KAOS, 주식 뉴스 RAG 챗봇.">
   <meta property="og:title" content="adtstack — 만들어서 직접 씁니다">
   <meta property="og:description" content="쓸 게 마땅치 않으면 직접 만들고, 만들면 매일 씁니다. 내가 필요해서 만들고 일상에서 수정합니다.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://adtstack.github.io/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234353c9'/%3E%3Cpath d='M9 23 16 9l7 14h-3.4L16 15.6 12.4 23z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
 
   <header class="hero">
@@ -40,11 +45,13 @@
           <span class="label">macOS 앱</span>
           <h3><a href="projects/briefcal/">BriefCal</a></h3>
           <p>
-            회의 전에 챙길 것, 끝나고 할 일. 캘린더에 적는 자리가 없던 그 부분을
-            일정 옆에 붙여두는 macOS 앱.
+            회의 전에 챙길 것, 끝나고 할 일. 캘린더에 메모하는 자리가 없어서 아쉬운 부분을 챙겨주는 일정 앱.
+            TODO 와 일정의 실험적 결합.
           </p>
           <ul class="chips">
-            <li>Swift</li><li>EventKit</li><li>local-only</li>
+            <li>Swift</li>
+            <li>EventKit</li>
+            <li>local-only</li>
           </ul>
           <div class="badge-row">
             <span class="badge">2026.07 시작 · 약 1개월 진행</span>
@@ -61,10 +68,12 @@
           <h3><a href="projects/forktail/">Forktail</a></h3>
           <p>
             파일이 어디가 다른지, 충돌을 어떻게 합칠지. 매일 쓰는 비교 도구가
-            마땃치 않아 직접 만들었다.
+            마음에 안 들어 직접 만들었다.
           </p>
           <ul class="chips">
-            <li>TypeScript</li><li>Tauri</li><li>Rust</li>
+            <li>TypeScript</li>
+            <li>Tauri</li>
+            <li>Rust</li>
           </ul>
           <div class="badge-row">
             <span class="badge">2026.06 시작 · 약 7주째 개발 중</span>
@@ -84,7 +93,9 @@
             정확하게 처리하는 Android 앱.
           </p>
           <ul class="chips">
-            <li>Dart</li><li>Flutter</li><li>Supabase</li>
+            <li>Dart</li>
+            <li>Flutter</li>
+            <li>Supabase</li>
           </ul>
           <div class="badge-row">
             <span class="badge">2026.07 시작 · 약 3주 진행</span>
@@ -101,14 +112,16 @@
           <h3><a href="projects/kaos/">KAOS</a></h3>
           <p>
             Obsidian 노트를 두 기기에서 동시에 써도 알아서 합쳐진다.
-            서버는 내 Cloudflare 계정에.
+            동기화 서버는 내 Cloudflare 계정에.
           </p>
           <ul class="chips">
-            <li>TypeScript</li><li>Cloudflare Workers</li><li>Yjs</li>
+            <li>TypeScript</li>
+            <li>Cloudflare Workers</li>
+            <li>Yjs</li>
           </ul>
           <div class="badge-row">
             <span class="badge">2026.06 시작 · 지속적 개선 중</span>
-            <span class="badge">v1.12.0</span>
+            <span class="badge">v1.12.2</span>
           </div>
           <div class="card-links">
             <a class="more" href="projects/kaos/">자세히 보기 →</a>
@@ -120,11 +133,13 @@
           <span class="label">ML 프로젝트</span>
           <h3><a href="projects/us-news-rag/">US Stock News RAG</a></h3>
           <p>
-            미국 주식 뉴스에 물어보는 챗봇. 답마다 점수를 매겨
-            품질을 지켜본다.
+            미국 주식 뉴스에 물어보는 챗봇. 응답마다 점수를 매겨 비교하고 테스트한다
           </p>
           <ul class="chips">
-            <li>Python</li><li>LangGraph</li><li>ChromaDB</li><li>Gemini</li>
+            <li>Python</li>
+            <li>LangGraph</li>
+            <li>ChromaDB</li>
+            <li>LangSmith</li>
           </ul>
           <div class="badge-row">
             <span class="badge">2026.02 · 약 1주 개발</span>
@@ -148,4 +163,5 @@
   </footer>
 
 </body>
+
 </html>
