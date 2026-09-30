@@ -1,9 +1,9 @@
 ---
 title: "KAOS"
-description: "내가 직접 소유한 인프라(Cloudflare Workers & Durable Objects)에서 구동되는 Obsidian 실시간 동기화 플러그인. Yjs CRDT 기반 동시 편집과 R2 분리 동기화."
+description: "0BSD 오픈소스인 YAOS를 기반으로 포크(Fork)하여, 내 인프라(Cloudflare)와 사용 패턴에 맞춰 신뢰성과 복구 메커니즘을 전면 재설계한 Obsidian 실시간 동기화 플러그인."
 category: "실시간 동기화 / 인프라"
 tags: ["TypeScript", "Obsidian", "Yjs", "CRDT", "Cloudflare Workers", "Durable Objects", "Cloudflare R2"]
-badges: ["0-BSD License", "활성 개발 중"]
+badges: ["0BSD License", "오픈소스 Fork"]
 pubDate: 2026-04-01
 githubUrl: "https://github.com/adtstack/kaos"
 featured: true
@@ -14,11 +14,33 @@ order: 1
 
 ## 프로젝트 개요
 
-[KAOS](https://github.com/adtstack/kaos)는 제3자 상용 클라우드나 유료 구독 서비스에 종속되지 않고, **사용자가 직접 소유한 인프라(Cloudflare Workers / Durable Objects / R2)** 위에서 동작하는 **Obsidian 실시간 동기화 시스템**입니다.
+[KAOS](https://github.com/adtstack/kaos)는 Kavin Sood가 공개한 0BSD 오픈소스 프로젝트 **YAOS를 기반으로 포크(Fork)**하여, 내가 직접 소유한 인프라(Cloudflare Workers / Durable Objects / R2) 위에서 안전하고 매끄럽게 동작하도록 발전시켜 나가고 있는 **Obsidian 실시간 동기화 시스템**입니다.
 
-Obsidian 플러그인과 경량 Cloudflare Worker 동기화 서버로 구성되며, 볼트의 마크다운 및 Base(`.base`) 파일들을 디스크 상의 일반 텍스트 파일로 온전히 보존하면서, 기기 간 텍스트 편집을 **Yjs CRDT(Conflict-free Replicated Data Types)**를 통해 실시간으로 매끄럽게 병합합니다.
+Obsidian 볼트의 마크다운 및 Base(`.base`) 문서를 디스크 상의 일반 텍스트 파일로 온전히 유지하면서, 기기 간 텍스트 편집을 **Yjs CRDT(Conflict-free Replicated Data Types)**를 통해 실시간으로 병합합니다.
 
-Kavin Sood의 YAOS(0BSD 라이선스)에서 출발하였으며, 독자적인 Cloudflare Durable Object 룸 아키텍처, I/O Backpressure 기반 파일시스템 브리지, 원클릭 배포 파이프라인, 포괄적인 복구 및 진단 툴링, 로컬 멀티 디바이스 QA 하네스를 갖춘 독립적인 프로젝트로 발전해 왔습니다.
+---
+
+## 오픈소스 포크 및 계보 (Lineage)
+
+오픈소스 생태계의 가장 큰 미덕은 **‘우수한 토대 위에 서서 각자의 필요에 맞게 개선하고 발전시켜 나간다’**는 점입니다. KAOS는 바닥부터 혼자 만든 척(Clean-room)하지 않고, 원작의 토대를 정직하게 밝히고 존중하는 방향을 택했습니다.
+
+- **출발점**: Kavin Sood의 [YAOS](https://github.com/adtstack/kaos) (0BSD 라이선스)
+- **독자적 발전 방향**: 원작의 핵심 아이디어를 계승하되, 실제 일상에서 매일 쓰며 마주한 문제들을 해결하기 위해 다음과 같은 영역을 전면 재설계하고 독립적으로 확장했습니다.
+  - **인프라 전환**: 개인 Cloudflare 계정에서 구동되는 Durable Object 기반의 동기화 룸 구축
+  - **파일시스템 브리지 안정화**: 시간(TTL) 기반 추측을 걷어내고 I/O Backpressure(Dirty-Set Drain Loop)와 직렬화 락을 적용하여 VFS와 CRDT 간의 상태 찢김 및 자기 반향 루프 원천 차단
+  - **복구 도구 및 툴링**: R2 기반 온디맨드/정기 스냅샷, 세션 다이어그노스틱, 충돌 가드, Nuclear Reset 등 복구 우선 아키텍처
+  - **테스트 하네스**: Cloudflare 배포 없이도 로컬에서 여러 기기를 시뮬레이션할 수 있는 멀티 디바이스 QA 환경
+
+---
+
+## 라이선스 (License)
+
+KAOS는 원작의 라이선스를 그대로 승계하여 **0BSD License (Free Public License / Zero-Clause BSD)** 하에 배포됩니다.
+
+- **라이선스**: **0BSD (Zero-Clause BSD)**
+- **원본 저작권**: `Copyright (C) 2026 by Kavin Sood`
+- **허용 범위**: 수수료 유무나 목적(상업적/비상업적)을 불문하고 자유로운 사용, 복제, 수정, 배포가 허용되는 가장 자유로운 형태의 퍼블릭 라이선스입니다.
+- **상표권 고지**: KAOS는 독립적인 오픈소스 프로젝트이며, Obsidian(Dynalist Inc.)과 공식적인 제휴나 후원 관계가 아닙니다.
 
 ---
 
@@ -61,30 +83,11 @@ KAOS는 취약한 시간(TTL/디바운스) 기반 추측 대신 **I/O Backpressu
 
 ---
 
-## 시스템 아키텍처 다이어그램
-
-#### 1. 파일시스템 브리지 제어 루프 및 불변식 (Disk ↔ CRDT)
-![파일시스템 브리지 제어 루프](/diagrams/filesystem-bridge-control-loops.webp)
-
-#### 2. 단일 Vault 모놀리식 Y.Doc vs 샤딩 모델 비교
-![단일 Vault 구조](/diagrams/single-vault-monolithic-y-doc.webp)
-
-#### 3. R2 첨부파일 업로드 및 수명 주기
-![첨부파일 업로드 라이프사이클](/diagrams/attachment-upload-lifecycle.webp)
-
-#### 4. 배포 버튼 복원력 (Cloudflare Deploy Resiliency)
-![배포 버튼 복원력](/diagrams/deploy-button-resilience.webp)
-
-#### 5. 블록 청킹을 배제한 아키텍처적 근거
-![블록 청킹 배제 근거](/diagrams/why-no-block-chunking.webp)
-
----
-
 ## 기술 스택 요약
 
 - **Frontend / Client**: TypeScript, Obsidian Plugin API, CodeMirror 6, Yjs, IndexedDB
 - **Backend / Sync Room**: Cloudflare Workers, Durable Objects, WebSockets
 - **Storage / Recovery**: Cloudflare R2 (Content-addressed Blobs, Vault Snapshots)
-- **License**: 0BSD License
+- **License**: 0BSD License (Copyright © 2026 Kavin Sood)
 
 상세한 엔지니어링 노트와 소스 코드는 [KAOS GitHub 저장소](https://github.com/adtstack/kaos)에서 확인하실 수 있습니다.
