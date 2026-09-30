@@ -1,0 +1,91 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE, GITHUB_URL } from '../consts';
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead
+			title={`소개 | ${SITE_TITLE}`}
+			description="쓸 게 마땅치 않으면 직접 만들고, 만들면 매일 씁니다. adtstack 소개 및 개발 철학."
+		/>
+	</head>
+
+	<body class="bg-white dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 antialiased min-h-screen flex flex-col selection:bg-blue-100 dark:selection:bg-blue-900/60 selection:text-blue-900 dark:selection:text-blue-100">
+		<Header />
+
+		<main class="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-12 sm:py-16">
+			<article>
+				<header class="mb-10 pb-8 border-b border-zinc-200 dark:border-zinc-800">
+					<h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
+						만들어서 직접 씁니다
+					</h1>
+					<p class="text-lg text-zinc-600 dark:text-zinc-400">
+						필요한 도구를 직접 설계하고 일상에서 매일 사용하며 개선해 나가는 개발자 <strong>adtstack</strong>입니다.
+					</p>
+				</header>
+
+				<div class="prose">
+					<h2>개발 및 제작 원칙</h2>
+					<p>
+						소프트웨어를 제작할 때 항상 지키고자 하는 몇 가지 핵심적인 기준이 있습니다.
+					</p>
+
+					<ul>
+						<li>
+							<strong>직접 매일 사용하는 도구 (Eat your own dog food)</strong><br />
+							스스로 매일 쓰지 않는 도구는 무엇이 불편한지 알 수 없습니다. 내가 절실히 필요로 하는 기능부터 시작해 일상에서 겪는 마찰을 직접 깎아 나갑니다.
+						</li>
+						<li>
+							<strong>Local-first & 가벼움</strong><br />
+							불필요하게 원격 서버나 구독 모델에 의존하지 않고, 내 기기에서 번개처럼 빠르게 반응하며 내 로컬 디스크에 안전하게 데이터를 보관하는 아키텍처를 선호합니다.
+						</li>
+						<li>
+							<strong>정직한 공유와 미완성의 공개</strong><br />
+							부풀려진 마케팅 수치 대신 실제로 동작하는 기능 중심의 소개를 지향하며, 아직 다듬어지지 않은 초기 빌드나 프로토타입도 솔직한 상태 뱃지와 함께 투명하게 공개합니다.
+						</li>
+					</ul>
+
+					<h2>다루는 주요 분야 및 기술 스택</h2>
+					<p>
+						문제의 성격에 따라 가장 적합한 도구와 언어를 선택해 개발합니다.
+					</p>
+
+					<ul>
+						<li><strong>Native & Desktop</strong>: Swift (macOS / iOS), Tauri, Rust</li>
+						<li><strong>Systems & Backend</strong>: Go (WebSocket, 실시간 동기화), Python (FastAPI, RAG)</li>
+						<li><strong>Web & Frontend</strong>: TypeScript, Astro, React, Tailwind CSS</li>
+						<li><strong>Mobile & Storage</strong>: Flutter / Dart, SQLite, Supabase</li>
+					</ul>
+
+					<h2>연결 및 저장소</h2>
+					<p>
+						모든 공개 프로젝트의 소스 코드와 커밋 이력은 GitHub에서 확인하실 수 있습니다.
+					</p>
+
+					<div class="not-prose flex flex-wrap gap-3 mt-6">
+						<a
+							href={GITHUB_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-sm font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
+						>
+							GitHub 프로필 바로가기 ↗
+						</a>
+						<a
+							href="/rss.xml"
+							class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+						>
+							RSS 피드 구독
+						</a>
+					</div>
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

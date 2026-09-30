@@ -1,0 +1,183 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_TAGLINE, GITHUB_URL } from '../consts';
+
+// Fetch featured projects (sorted by order)
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+	.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
+	.slice(0, 4);
+
+// Fetch recent blog posts (sorted by pubDate desc)
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`${SITE_TITLE} — ${SITE_TAGLINE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="bg-white dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 antialiased min-h-screen flex flex-col selection:bg-blue-100 dark:selection:bg-blue-900/60 selection:text-blue-900 dark:selection:text-blue-100">
+		<Header />
+
+		<main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-12 sm:py-16">
+			<!-- Hero Section -->
+			<section class="mb-16 sm:mb-20">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900/60 mb-5">
+					<span class="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span>
+					소프트웨어 엔지니어 & 빌더
+				</div>
+
+				<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-6 leading-[1.15]">
+					만들어서 <span class="text-blue-600 dark:text-blue-400">직접 씁니다</span>.
+				</h1>
+
+				<p class="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed mb-8">
+					쓸 게 마땅치 않으면 직접 만들고, 만들면 매일 씁니다. 캘린더, diff/merge 도구, 노트 동기화, 가족 협업 앱 — 내가 필요해서 만들고 일상에서 점진적으로 개선해 나갑니다.
+				</p>
+
+				<div class="flex flex-wrap items-center gap-3">
+					<a
+						href="/projects"
+						class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-colors shadow-sm shadow-blue-500/10"
+					>
+						프로젝트 둘러보기 →
+					</a>
+					<a
+						href="/blog"
+						class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-medium text-sm transition-colors"
+					>
+						블로그 글 읽기
+					</a>
+					<a
+						href={GITHUB_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 text-sm font-medium transition-colors"
+					>
+						GitHub ↗
+					</a>
+				</div>
+			</section>
+
+			<!-- Featured Projects Section -->
+			<section class="mb-16 sm:mb-20">
+				<div class="flex items-end justify-between mb-8 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+					<div>
+						<h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+							주요 프로젝트
+						</h2>
+						<p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+							일상에서 필요해 직접 설계하고 개발한 소프트웨어
+						</p>
+					</div>
+					<a
+						href="/projects"
+						class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+					>
+						전체 보기 <span>→</span>
+					</a>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+					{featuredProjects.map((project) => (
+						<div class="group relative rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 p-6 flex flex-col justify-between hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all hover:shadow-lg hover:shadow-blue-500/5">
+							<div>
+								<div class="flex items-center justify-between gap-2 mb-3">
+									<span class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md bg-zinc-200/70 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-300">
+										{project.data.category}
+									</span>
+									{project.data.badges?.[0] && (
+										<span class="text-xs text-amber-600 dark:text-amber-400 font-medium">
+											{project.data.badges[0]}
+										</span>
+									)}
+								</div>
+
+								<h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+									<a href={`/projects/${project.id}/`} class="after:absolute after:inset-0">
+										{project.data.title}
+									</a>
+								</h3>
+
+								<p class="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed mb-4">
+									{project.data.description}
+								</p>
+							</div>
+
+							<div>
+								<div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/60">
+									{project.data.tags.slice(0, 3).map((tag) => (
+										<span class="text-xs font-mono text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-800/80 px-2 py-0.5 rounded border border-zinc-200/80 dark:border-zinc-700/60">
+											{tag}
+										</span>
+									))}
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- Recent Blog Posts Section -->
+			<section>
+				<div class="flex items-end justify-between mb-8 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+					<div>
+						<h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+							최신 글
+						</h2>
+						<p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+							도구를 만들며 얻은 기술적 경험과 생각의 기록
+						</p>
+					</div>
+					<a
+						href="/blog"
+						class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+					>
+						글 목록 전체 <span>→</span>
+					</a>
+				</div>
+
+				<div class="divide-y divide-zinc-200 dark:divide-zinc-800/80">
+					{recentPosts.map((post) => (
+						<article class="py-6 first:pt-0 last:pb-0 group">
+							<div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+								<h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+									<a href={`/blog/${post.id}/`}>
+										{post.data.title}
+									</a>
+								</h3>
+								<div class="text-xs text-zinc-500 dark:text-zinc-400 shrink-0">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+							</div>
+
+							<p class="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed mb-3">
+								{post.data.description}
+							</p>
+
+							{post.data.tags?.length > 0 && (
+								<div class="flex flex-wrap gap-2">
+									{post.data.tags.map((tag) => (
+										<span class="text-xs text-blue-600 dark:text-blue-400 font-medium">
+											#{tag}
+										</span>
+									))}
+								</div>
+							)}
+						</article>
+					))}
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>

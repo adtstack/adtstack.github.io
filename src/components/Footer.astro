@@ -1,0 +1,24 @@
+---
+import { SITE_TITLE, GITHUB_URL } from '../consts';
+
+const today = new Date();
+---
+
+<footer class="mt-auto border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 py-8 text-sm text-zinc-500 dark:text-zinc-400 transition-colors">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="font-semibold text-zinc-800 dark:text-zinc-200">{SITE_TITLE}</span>
+      <span>&copy; {today.getFullYear()}</span>
+      <span>&middot;</span>
+      <span>만들어서 직접 씁니다</span>
+    </div>
+
+    <div class="flex items-center gap-5">
+      <a href="/blog" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">블로그</a>
+      <a href="/projects" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">프로젝트</a>
+      <a href="/about" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">소개</a>
+      <a href="/rss.xml" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">RSS</a>
+      <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">GitHub ↗</a>
+    </div>
+  </div>
+</footer>

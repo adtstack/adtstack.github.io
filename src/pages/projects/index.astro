@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`프로젝트 | ${SITE_TITLE}`} description="직접 필요해서 만들고 일상에서 사용하는 공개 소프트웨어 포트폴리오" />
+	</head>
+	<body class="bg-white dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 antialiased min-h-screen flex flex-col selection:bg-blue-100 dark:selection:bg-blue-900/60 selection:text-blue-900 dark:selection:text-blue-100">
+		<Header />
+
+		<main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-12 sm:py-16">
+			<!-- Page Header -->
+			<header class="mb-12 pb-6 border-b border-zinc-200 dark:border-zinc-800">
+				<h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
+					프로젝트
+				</h1>
+				<p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
+					쓸 만한 도구가 마땅치 않을 때 직접 만들고, 일상에서 매일 쓰며 지속적으로 개선하는 소프트웨어들입니다.
+				</p>
+			</header>
+
+			<!-- Projects Grid -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				{projects.map((project) => (
+					<div class="group relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-6 sm:p-7 flex flex-col justify-between hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all hover:shadow-xl hover:shadow-blue-500/5">
+						<div>
+							<div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+								<span class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">
+									{project.data.category}
+								</span>
+								{project.data.badges?.[0] && (
+									<span class="text-xs text-amber-600 dark:text-amber-400 font-medium">
+										{project.data.badges[0]}
+									</span>
+								)}
+							</div>
+
+							<h2 class="text-2xl font-bold text-zinc-900 dark:text-zinc-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2.5">
+								<a href={`/projects/${project.id}/`} class="after:absolute after:inset-0">
+									{project.data.title}
+								</a>
+							</h2>
+
+							<p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+								{project.data.description}
+							</p>
+						</div>
+
+						<div>
+							<!-- Tech Stack Tags -->
+							<div class="flex flex-wrap gap-1.5 mb-5 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/60">
+								{project.data.tags.map((tag) => (
+									<span class="text-xs font-mono text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-800/80 px-2 py-0.5 rounded border border-zinc-200/80 dark:border-zinc-700/60">
+										{tag}
+									</span>
+								))}
+							</div>
+
+							<!-- Action Links -->
+							<div class="flex items-center justify-between text-xs font-semibold pt-1 relative z-10">
+								<a
+									href={`/projects/${project.id}/`}
+									class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+								>
+									상세 설명 보기 <span>→</span>
+								</a>
+
+								{project.data.githubUrl && (
+									<a
+										href={project.data.githubUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
+										aria-label={`${project.data.title} GitHub`}
+									>
+										GitHub ↗
+									</a>
+								)}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</main>
+
+		<Footer />
+	</body>
+</html>
