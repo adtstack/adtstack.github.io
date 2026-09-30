@@ -27,4 +27,4 @@ Ink & Switch 연구소의 유명한 에세이에서 제안된 **Local-first** �
 
 ## 실제로 구축하며 배운 것들
 
-제가 개발 중인 Obsidian 동기화 데몬 `KAOS`나 캘린더 앱 `BriefCal` 역시 철저하게 이 원칙에 입각해 설계되었습니다. 로컬 퍼스트 아키텍처를 도입한 뒤로, 네트워크 지연으로 인한 렉이나 데이터 유실에 대한 불안감에서 완전히 해방될 수 있었습니다.
+제가 개발 중인 Obsidian 동기화 플러그인 [KAOS](https://github.com/adtstack/kaos)나 캘린더 앱 [BriefCal](https://github.com/adtstack/BriefCal) 역시 철저하게 이 원칙에 입각해 설계되었습니다. 로컬 퍼스트 아키텍처를 도입한 뒤로, 네트워크 지연으로 인한 렉이나 데이터 유실에 대한 불안감에서 완전히 해방될 수 있었습니다.
