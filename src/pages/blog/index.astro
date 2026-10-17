@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import BlogIndex from '../../layouts/BlogIndex.astro';
+import { newestFirst } from '../../utils/blog';
+
+const posts = (await getCollection('blog')).sort(newestFirst);
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+---
+
+<BlogIndex posts={posts} allTags={allTags} />

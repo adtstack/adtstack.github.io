@@ -1,0 +1,107 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import { tagUrl } from '../utils/blog';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+	allTags: string[];
+	activeTag?: string;
+}
+
+const { posts, allTags, activeTag } = Astro.props;
+const description = activeTag
+	? `#${activeTag} 태그가 붙은 글 ${posts.length}개를 모았습니다.`
+	: '익숙한 기술을 다시 살펴보고, 개발하며 배운 내용을 정리합니다.';
+const title = activeTag ? `#${activeTag} | 블로그 | ${SITE_TITLE}` : `블로그 | ${SITE_TITLE}`;
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body class="bg-white dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 antialiased min-h-screen flex flex-col selection:bg-blue-100 dark:selection:bg-blue-900/60 selection:text-blue-900 dark:selection:text-blue-100">
+		<Header />
+
+		<main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-12 sm:py-16">
+			<!-- Page Header -->
+			<header class="mb-12 pb-6 border-b border-zinc-200 dark:border-zinc-800">
+				<h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
+					블로그
+				</h1>
+				<p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
+					{description}
+				</p>
+
+				{allTags.length > 0 && (
+					<nav aria-label="태그로 글 모아 보기" class="flex flex-wrap items-center gap-2 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800/60">
+						<a
+							href="/blog/"
+							aria-current={!activeTag ? 'page' : undefined}
+							class:list={[
+								'text-xs px-2.5 py-1 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
+								!activeTag ? 'bg-blue-600 text-white' : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700',
+							]}
+						>전체</a>
+						{allTags.map((tag) => (
+							<a
+								href={tagUrl(tag)}
+								aria-current={activeTag === tag ? 'page' : undefined}
+								class:list={[
+									'text-xs px-2.5 py-1 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
+									activeTag === tag ? 'bg-blue-600 text-white' : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700',
+								]}
+							>#{tag}</a>
+						))}
+					</nav>
+				)}
+			</header>
+
+			<!-- Post List -->
+			<div class="space-y-6">
+				{posts.map((post) => (
+					<article class="p-6 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 bg-zinc-50/40 dark:bg-zinc-900/30 hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all group">
+						<div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+							<h2 class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+								<a href={`/blog/${post.id}/`}>
+									{post.data.title}
+								</a>
+							</h2>
+							<div class="text-xs text-zinc-500 dark:text-zinc-400 shrink-0">
+								<FormattedDate date={post.data.pubDate} />
+							</div>
+						</div>
+
+						<p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4 text-sm sm:text-base">
+							{post.data.description}
+						</p>
+
+						<div class="flex items-center justify-between pt-2">
+							<div class="flex flex-wrap gap-2">
+								{post.data.tags?.map((tag) => (
+									<a href={tagUrl(tag)} class="text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+										#{tag}
+									</a>
+								))}
+							</div>
+
+							<a
+								href={`/blog/${post.id}/`}
+								class="text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-1"
+							>
+								읽기 <span>→</span>
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</main>
+
+		<Footer />
+	</body>
+</html>

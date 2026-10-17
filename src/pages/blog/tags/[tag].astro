@@ -1,0 +1,26 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BlogIndex from '../../../layouts/BlogIndex.astro';
+import { newestFirst } from '../../../utils/blog';
+
+export async function getStaticPaths() {
+	const posts = (await getCollection('blog')).sort(newestFirst);
+	const allTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+	return allTags.map((tag) => ({
+		params: { tag },
+		props: {
+			posts: posts.filter((post) => post.data.tags.includes(tag)),
+			allTags,
+			activeTag: tag,
+		},
+	}));
+}
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+	allTags: string[];
+	activeTag: string;
+}
+---
+
+<BlogIndex {...Astro.props} />

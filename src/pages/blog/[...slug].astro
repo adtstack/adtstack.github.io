@@ -1,0 +1,46 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	const groups = new Map<string, CollectionEntry<'blog'>[]>();
+	for (const post of posts) {
+		const folder = post.id.split('/').slice(0, -1).join('/');
+		const group = groups.get(folder) ?? [];
+		group.push(post);
+		groups.set(folder, group);
+	}
+
+	const toLink = (post?: CollectionEntry<'blog'>) =>
+		post ? { id: post.id, title: post.data.title } : undefined;
+
+	return [...groups].flatMap(([folder, group]) => {
+		// Series follow their numbered filenames; standalone posts follow publication order.
+		group.sort((a, b) =>
+			(folder ? 0 : a.data.pubDate.valueOf() - b.data.pubDate.valueOf()) ||
+			a.id.localeCompare(b.id, 'en', { numeric: true }),
+		);
+		return group.map((post, index) => ({
+			params: { slug: post.id },
+			props: {
+				...post,
+				previousPost: toLink(group[index - 1]),
+				nextPost: toLink(group[index + 1]),
+			},
+		}));
+	});
+}
+type AdjacentPost = { id: string; title: string };
+type Props = CollectionEntry<'blog'> & {
+	previousPost?: AdjacentPost;
+	nextPost?: AdjacentPost;
+};
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPost {...post.data} previousPost={post.previousPost} nextPost={post.nextPost}>
+	<Content />
+</BlogPost>
