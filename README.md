@@ -71,6 +71,16 @@ featured: true
 
 프롤로그 「개발 10년 차, 그런데 나는 왜 이직이 불안할까?」는 [`00-starting-again.md`](src/content/blog/thought-i-knew/00-starting-again.md)에 있습니다.
 
+#### 모음: 개발 노트
+
+새로 배운 개발 개념이나 구현 과정에서 발견한 점, 짧은 실험을 담습니다. 공통 태그 `개발 노트`로 모아보며, 글은 `src/content/blog/dev/`에 둡니다.
+
+- **폴더**: `src/content/blog/dev/`
+- **파일 이름**: `01-consumer-lag-and-bottlenecks.md`처럼 두 자리 순서와 영문 소문자·하이픈으로 작성합니다.
+- **부제**: `Kafka #1 — 개별 질문`처럼 주제와 연재 번호를 표시합니다.
+- **태그**: `개발 노트`와 글별 기술 태그를 함께 넣습니다.
+- **검증 기록**: 직접 사용하거나 실험한 내용과 문서로 살펴본 내용, 가상 시나리오를 구분합니다.
+
 ### 프로젝트
 
 `src/content/projects/` 디렉터리에 새로운 `.md` 파일을 생성합니다.
